@@ -21,7 +21,7 @@ app.use(cookieParser());
 // cors=> cross origin resource sharing
 app.use(
   cors({
-    origin: process.env.ORIGIN,
+    origin: [process.env.ORIGIN||"",process.env.ORIGIN2||"",process.env.ORIGIN3||""],
   })
 );
 

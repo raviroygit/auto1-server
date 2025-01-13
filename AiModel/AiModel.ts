@@ -5,12 +5,14 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 import { SubCategory } from "../src/models/subcategory.model";
 import { Category } from "../src/models/category.model";
+require("dotenv").config();
 
+console.log('process.env.OPENAI_API_KEY', process.env.OPENAI_API_KEY)
 const openai = new OpenAI({
   // baseURL:
   //   "https://af1x9kw192svovky.us-east-1.aws.endpoints.huggingface.cloud/v1",
   // apiKey: "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",
-  apiKey:"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"
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 const query = async (
@@ -19,21 +21,24 @@ const query = async (
 ): Promise<string> => {
   return new Promise(async (resolve, reject) => {
     try {
-
       const findCategoryPrompt = await Category.findOne({
         name: input.data.category_name,
       });
+
+      console.log('input', input)
 
       const catPrompt = findCategoryPrompt?.prompt;
 
       const findSampleFile = await SubCategory.findOne({
         name: input.data.subcategory_name,
       }).populate("files");
+
       const subCatPrompt = findSampleFile?.prompt;
+      console.log('subCatPrompt', subCatPrompt)
 
       let sysPrompt = "";
       findSampleFile?.files.forEach((file: any) => {
-        sysPrompt = sysPrompt+ `${file.name}: \n  ${file.text}\n`;
+        sysPrompt = sysPrompt + `${file.name}: \n  ${file.text}\n`;
         // console.log('file',file.name, file.text)
       });
       // console.log('sysPrompt', sysPrompt)
@@ -79,26 +84,27 @@ Review: Based on the input reviews provided, create a short summary of these rev
  
 Your task:
 Generate a valid JSON response similar to the example above based on the user's query. Provide only the valid JSON response in a structured format, without additional text or explanation.
+
 `;
 
       const messages: any = [
         { role: "system", content: sysPrompt },
         // { role: "assistant", content: catPrompt },
         // { role: "assistant", content: subCatPrompt },
-        { role: "system", content: assistantPrompt },
+        { role: "system", content: subCatPrompt },
         { role: "user", content: userPrompt },
       ];
 
-
-      console.log('messages', messages)
-
       const stream: any = await openai.chat.completions.create({
-        model:"gpt-4o-mini",
+        model: "gpt-4o-mini",
         messages: messages,
         stream: false,
       });
 
-      console.log('stream.choices[0]?.message.content', stream.choices[0]?.message.content)
+      console.log(
+        "stream.choices[0]?.message.content",
+        stream.choices[0]?.message.content
+      );
       resolve(stream.choices[0]?.message.content);
       // for await (const chunk of stream) {
       //   if(chunk.choices[0]?.delta?.content){

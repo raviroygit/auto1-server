@@ -1,0 +1,39 @@
+{
+  "name": "auto",
+  "version": "1.0.0",
+  "description": "Auto part GenAi",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "start": "ts-node-dev --respawn --transpile-only server.ts"
+  },
+  "author": "Ravi Roy",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/hub": "^1.0.0",
+    "@langchain/core": "^0.3.28",
+    "@pinecone-database/pinecone": "^4.0.0",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/express-fileupload": "^1.5.1",
+    "@types/node": "^22.10.5",
+    "@types/pdf-parse": "^1.1.4",
+    "axios": "^1.7.9",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-fileupload": "^1.5.1",
+    "fs": "^0.0.1-security",
+    "langchain": "^0.3.11",
+    "mammoth": "^1.9.0",
+    "mongoose": "^8.9.3",
+    "ollama": "^0.5.11",
+    "openai": "^4.78.1",
+    "path": "^0.12.7",
+    "pdf-parse": "^1.1.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2",
+    "uuid": "^11.0.4"
+  }
+}

@@ -9,9 +9,6 @@ require("dotenv").config();
 
 console.log('process.env.OPENAI_API_KEY', process.env.OPENAI_API_KEY)
 const openai = new OpenAI({
-  // baseURL:
-  //   "https://af1x9kw192svovky.us-east-1.aws.endpoints.huggingface.cloud/v1",
-  // apiKey: "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",
   apiKey: process.env.OPENAI_API_KEY || "",
 });
 

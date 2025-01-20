@@ -7,7 +7,6 @@ import { SubCategory } from "../src/models/subcategory.model";
 import { Category } from "../src/models/category.model";
 require("dotenv").config();
 
-console.log('process.env.OPENAI_API_KEY', process.env.OPENAI_API_KEY)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });

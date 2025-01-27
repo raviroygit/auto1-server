@@ -69,7 +69,7 @@ Review: Based on the input reviews provided, create a short summary of these rev
           "title": " ",
           "company_name": "",
           "description": "",
-          "features":[] "",
+          "features": "string",
           "attributes": [
             
           ],

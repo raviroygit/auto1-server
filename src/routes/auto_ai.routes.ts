@@ -1,8 +1,10 @@
 import express from "express";
-import { generateAiResponse } from "../controller/auto_ai.controller";
+import { generateAiResponse, generateFormatResponse } from "../controller/auto_ai.controller";
 
 const routerAutoAi = express.Router();
 
 routerAutoAi.post("/ai",generateAiResponse)
+routerAutoAi.post("/format",generateFormatResponse)
+
 
 export default routerAutoAi;

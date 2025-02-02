@@ -8,7 +8,7 @@ export interface ICategory extends Document {
 
 const CategorySchema = new Schema({
   name: { type: String, required: true },
-  prompt: { type: String, required: true },
+  prompt: { type: String },
   subCategories: [{ type: Schema.Types.ObjectId, ref: "SubCategory" }],
 });
 

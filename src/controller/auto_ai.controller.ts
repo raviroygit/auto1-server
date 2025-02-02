@@ -37,7 +37,7 @@ export const generateFormatResponse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { text } = req.body;
-      if (!text || text.trim() === "") {
+      if (!text || text?.trim() === "") {
         return next(new ErrorHandler("Text is required, Input some text", 400));
       }
 

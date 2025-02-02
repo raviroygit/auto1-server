@@ -87,7 +87,7 @@ Generate a valid JSON response similar to the example above based on the user's 
         { role: "system", content: sysPrompt },
         // { role: "assistant", content: catPrompt },
         // { role: "assistant", content: subCatPrompt },
-        { role: "system", content: subCatPrompt },
+        { role: "system", content: subCatPrompt+",STRICTLY without additional text or explanation." },
         { role: "user", content: userPrompt },
       ];
 

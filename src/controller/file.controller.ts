@@ -35,6 +35,7 @@ const saveFileData = async (uploadedFile: any, subCategoryId: string) => {
   });
   return file;
 };
+
 export const createFiles = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     if (!req.files || !req.files.files) {

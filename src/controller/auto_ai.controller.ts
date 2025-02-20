@@ -44,7 +44,7 @@ export const generateFormatResponse = CatchAsyncError(
       const context: any = [
         {
           role: "system",
-          content: `Extract and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. STRICTLY COPY the Exact same word to word information: \n\n
+          content: `STRICTLY Extract information and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. For example "Title"=product name as is, "Description"=Product description.  STRICTLY COPY the Exact same word to word information:  \n\n
           
           {
   "request_id": "001",

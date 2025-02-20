@@ -44,7 +44,7 @@ export const generateFormatResponse = CatchAsyncError(
       const context: any = [
         {
           role: "system",
-          content: `Extract and map product information to this JSON format:\n\n{
+          content: `Extract and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. STRICTLY COPY the Exact same word to word information:\n\n{
   "request_id": "001",
   "data": {
     "category_name": "string",
@@ -57,17 +57,22 @@ export const generateFormatResponse = CatchAsyncError(
       "attributes": [
         { "weight": "string" },
         { "length": "string" },
-        { "height": "string" }
+        { "height": "string" },
+         ...
       ],
       "reviews": ["string"]
     }
   }
-}\n\nIf a field is missing, return 'Not found'.`,
+}\n\nIf a field is missing, return 'Not found'
+
+here is the information's, you have use this for extract the JSON information's:
+${text}
+.`,
         },
-        {
-          role: "user",
-          content: `Extract the following information from this product description and format it as JSON:\n\n${text}`,
-        },
+        // {
+        //   role: "user",
+        //   content: `Extract the following information from this product description and format it as JSON:\n\n${text}`,
+        // },
       ];
 
       const response: any = await openai.chat.completions.create({
@@ -82,7 +87,9 @@ export const generateFormatResponse = CatchAsyncError(
         return next(new ErrorHandler("No response from OpenAI API", 400));
       }
 
-      res.status(200).json({ success: true, ai: JSON.parse(cleanData(formattedResponse)) });
+      res
+        .status(200)
+        .json({ success: true, ai: JSON.parse(cleanData(formattedResponse)) });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }

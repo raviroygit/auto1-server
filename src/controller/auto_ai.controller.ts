@@ -44,7 +44,7 @@ export const generateFormatResponse = CatchAsyncError(
       const context: any = [
         {
           role: "system",
-          content: `STRICTLY Extract information and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. For example "Title"=product name as is, "Description"=Product description.  STRICTLY COPY the Exact same word to word information:  \n\n
+          content: `Carefully study the attached Text. Your job is to STRICTLY Extract information and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. For example "Title"=product name as is (e.g. "DieHard Gold Battery: 34 Group Size, 800 CCA, 1000 CA, 110 Minute Reserve Capacity, Maximum Starting Power "), "Description"=Product description which will typically come after product name or title.  STRICTLY COPY the Exact same word to word information:  \n\n
           
           {
   "request_id": "001",

@@ -44,7 +44,9 @@ export const generateFormatResponse = CatchAsyncError(
       const context: any = [
         {
           role: "system",
-          content: `STRICTLY Extract and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. STRICTLY COPY the Exact same word to word information: \n\n{
+          content: `Extract and map information to this JSON format as it is, STRICTLY DO NOT modify or generate any new information. STRICTLY COPY the Exact same word to word information: \n\n
+          
+          {
   "request_id": "001",
   "data": {
     "category_name": "string",
@@ -85,6 +87,45 @@ ${text}
 
       if (!formattedResponse) {
         return next(new ErrorHandler("No response from OpenAI API", 400));
+      }
+
+      res
+        .status(200)
+        .json({ success: true, ai: JSON.parse(cleanData(formattedResponse)) });
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
+    }
+  }
+);
+
+export const extractCompanyInformation = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { text } = req.body;
+      if (!text || text?.trim() === "") {
+        return next(new ErrorHandler("Text is required, Input some text", 400));
+      }
+
+      const context: any = [
+        {
+          role: "system",
+          content: `Extract the exact "Company Information" section from the provided text. Ensure that the extracted content matches word-for-word with the original text and does not include any additional modifications or omissions.
+          Text:
+          ${text}
+          `,
+        },
+      ];
+
+      const response: any = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: context,
+        stream: false,
+      });
+
+      const formattedResponse = response.choices[0]?.message.content;
+
+      if (!formattedResponse) {
+        return next(new ErrorHandler("No response from Ai", 400));
       }
 
       res

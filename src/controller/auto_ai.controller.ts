@@ -130,7 +130,7 @@ export const extractCompanyInformation = CatchAsyncError(
 
       res
         .status(200)
-        .json({ success: true, ai: JSON.parse(cleanData(formattedResponse)) });
+        .json({ success: true, ai: cleanData(formattedResponse) });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }

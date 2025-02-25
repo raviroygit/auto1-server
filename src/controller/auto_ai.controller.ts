@@ -109,7 +109,7 @@ export const extractCompanyInformation = CatchAsyncError(
       const context: any = [
         {
           role: "system",
-          content: `Extract and Re-write the text under "Company Information" section from the provided text. Re-write the company information in professional tone as a marketing expert in same number of sentences. 
+          content: `Extract and Re-write a variation of the text under "Company Information" section from the provided text. Re-write the company information in professional tone as a marketing expert in same number of sentences. STRICTLY DO NOT WRITE "Company Information:" in the text.
           Text:
           ${text}
           `,
